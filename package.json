@@ -1,0 +1,45 @@
+{
+  "name": "next-google-adsense",
+  "version": "1.0.0",
+  "description": "Next.js Google AdSense",
+  "main": "dist/index.js",
+  "type": "commonjs",
+  "keywords": [
+    "next.js",
+    "google",
+    "adsense",
+    "react",
+    "typescript"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc & jest",
+    "dev": "tsc -w",
+    "dev:test": "tsc & jest --coverage",
+    "pub": "npm run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soranoo/next-google-adsense.git"
+  },
+  "author": "soranoo (Freeman)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/soranoo/next-google-adsense/issues"
+  },
+  "homepage": "https://github.com/soranoo/next-google-adsense#readme",
+  "peerDependencies": {
+    "next": ">=11.0.0",
+    "react": ">=17.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/react": "^18.2.31",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}
