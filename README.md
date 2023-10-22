@@ -6,7 +6,7 @@ Add Google AdSense to your Next.js app.
 
 This package is deeply inspired by [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/).
 
-Why I don't use [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/) directly? Because it only Responsive Display Ad. I want to use In-article Ads. So I decided to create a new package. (read [👾 Why next-google-adsense?](#👾-why-next-google-adsense) for more details)
+Why I don't use [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/) directly? Because it only support Auto Ads and Responsive Display Ad. I want to use In-article Ads. So I decided to create a new package. (read [👾 Why next-google-adsense?](#👾-why-next-google-adsense) for more details)
 
 Give me a ⭐ if you like it.
 
