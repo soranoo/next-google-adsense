@@ -232,7 +232,7 @@ const Page = () => {
 ## 🤝 Contributing
 Contributions are welcome! If you find a bug or have a feature request, please open an issue. If you want to contribute code, please fork the repository and submit a pull request.
 
-Before you open a pull request, please make sure that you run `npm run dev:test` or `npm run test` to make sure the code run as expected.
+Before you open a pull request, please make sure that you run `npm run dev:test` to make sure the code run as expected.
 
 
 ## 📝 License
