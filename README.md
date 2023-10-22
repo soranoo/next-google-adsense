@@ -3,7 +3,7 @@
 
 Add Google AdSense to your Next.js app.
 
-This package is deeply inspired by [nextjs-google-adsense](https://github.com/soranoo/nextjs-google-adsense/).
+This package is deeply inspired by [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/).
 
 Give me a ⭐ if you like it.
 
