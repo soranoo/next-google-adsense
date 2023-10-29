@@ -1,6 +1,6 @@
 {
   "name": "next-google-adsense",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Next.js Google AdSense",
   "main": "dist/index.js",
   "type": "commonjs",
@@ -38,5 +38,8 @@
     "jest": "^29.5.0",
     "ts-jest": "^29.0.5",
     "typescript": "^5.0.2"
+  },
+  "bin": {
+    "create-ads-txt": "./bin/cli.mjs"
   }
 }

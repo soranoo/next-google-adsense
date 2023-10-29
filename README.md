@@ -16,6 +16,7 @@ Give me a ⭐ if you like it.
 - Support TypeScript
 - Zero Dependencies
 - Theoretically support all AdSense AD types (see [🎨 Create a custom layout](#🎨-create-a-custom-layout) for more details)
+- Create `ads.txt` automatically (see [Initialization / Verification](#initialization--verification-🍀) for more details
 
 ## 📑 Table of Contents
 
@@ -24,7 +25,7 @@ Give me a ⭐ if you like it.
 - [📦 Requirements](#📦-requirements)
 - [🚀 Getting Started](#🚀-getting-started)
   - [Installation](#installation)
-  - [Initialization](#initialization)
+  - [Initialization / Verification](#initialization--verification-🍀)
   - [Usage](#usage)
     - [Auto Ads](#auto-ads)
     - [Manual Ads](#manual-ads)
@@ -43,14 +44,15 @@ Give me a ⭐ if you like it.
 ## 👾 Why next-google-adsense?
 
 |                            | next-google-adsense (this) | [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/) |
-| -------------------------- | -------------------------- | --------------------- |
-| TypeScript                 | ✅                         | ✅                    |
-| Support Auto Ads           | ✅                         | ✅                    |
-| Support Display Ad         | ✅                         | ✅                    |
-| Support In-feed Ad         | ✅                         | ❌                    |
-| Support In-article Ad      | ✅                         | ❌                    |
-| Support Matched Content Ad | ✅                         | ❌                    |
-| Multiple ADs on one page   | ✅                         | ⚠️\*1                 |
+| -------------------------- | -------------------------- | ---------------------------------------------------------------------- |
+| TypeScript                 | ✅                         | ✅                                                                     |
+| Support Auto Ads           | ✅                         | ✅                                                                     |
+| Support Display Ad         | ✅                         | ✅                                                                     |
+| Support In-feed Ad         | ✅                         | ❌                                                                     |
+| Support In-article Ad      | ✅                         | ❌                                                                     |
+| Support Matched Content Ad | ✅                         | ❌                                                                     |
+| Dynamic `ads.txt`          | ✅                         | ❌                                                                     |
+| Multiple ADs on one page   | ✅                         | ⚠️\*1                                                                  |
 
 \*1: According to the their [documentation](https://github.com/btk/nextjs-google-adsense/blob/master/README.md) seems it is ok to use multiple ADs on one page. But I found that it will cause an error.
 
@@ -69,29 +71,50 @@ npm install next-google-adsense
 
 Visit the [npm](https://www.npmjs.com/package/next-google-adsense) page.
 
-### Initialization 🍀
+### Initialization / Verification 🍀
 
-```typescript
-// pages/_app.tsx
+There are two ways to verify your site (of course you can implement both):
 
-// import the module
-import { GoogleAdSense } from "next-google-adsense";
+1. AdSense code snippet
 
-const App = ({ Component, pageProps }) => {
-  return (
-    <>
-      <GoogleAdSense publisherId="pub-XXXXXXXXXXXXXXXX" /> {/* 👈 16 digits */}
-      {/* or */}
-      <GoogleAdSense /> {/* if NEXT_PUBLIC_ADSENSE_PUBLISHER_ID is set */}
-      <Component {...pageProps} />
-    </>
-  );
-};
+   ```typescript
+   // pages/_app.tsx
 
-export default App;
-```
+   // import the module
+   import { GoogleAdSense } from "next-google-adsense";
 
-You can also add the `publisherId` as environment variable as `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. The environment variable will override the prop if both are set.
+   const App = ({ Component, pageProps }) => {
+     return (
+       <>
+         <GoogleAdSense publisherId="pub-XXXXXXXXXXXXXXXX" /> {/* 👈 16 digits */}
+         {/* or */}
+         <GoogleAdSense /> {/* if NEXT_PUBLIC_ADSENSE_PUBLISHER_ID is set */}
+         <Component {...pageProps} />
+       </>
+     );
+   };
+
+   export default App;
+   ```
+    You can also add the `publisherId` as environment variable as `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. The environment variable will override the prop if both are set.
+
+2. Ads.txt snippet
+   ```json
+   // package.json
+   
+   // ...
+   "scripts": {
+      "build": "next build && create-ads-txt", // 👈 if you want to create ads.txt automatically, recommended
+      "create-ads-txt": "create-ads-txt" // 👈 if you want to create ads.txt manually
+   },
+   // ...
+   ```
+
+   > ⚠️ Your old `ads.txt` will be overwritten during the generation process.
+
+   You must set `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` as environment variable. The environment variable will be used to generate the `ads.txt`.
+
+
 
 ### Usage 🎉
 
