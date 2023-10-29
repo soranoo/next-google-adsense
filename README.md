@@ -6,7 +6,7 @@ Add Google AdSense to your Next.js app.
 
 This package is deeply inspired by [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/).
 
-Why I don't use [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/) directly? Because it only support Auto Ads and Responsive Display Ad. I want to use In-article Ads. So I decided to create a new package. (read [👾 Why next-google-adsense?](#👾-why-next-google-adsense) for more details)
+Why I don't use [nextjs-google-adsense](https://github.com/btk/nextjs-google-adsense/) directly? Because it only support Auto Ads and Responsive Display Ad. I want to use In-article Ads. So I decided to create a new package. (read [👾 Why next-google-adsense?](#-why-next-google-adsense) for more details)
 
 Give me a ⭐ if you like it.
 
@@ -16,30 +16,30 @@ Give me a ⭐ if you like it.
 - Support TypeScript
 - Zero Dependencies
 - Theoretically support all AdSense AD types (see [🎨 Create a custom layout](#🎨-create-a-custom-layout) for more details)
-- Create `ads.txt` automatically (see [Initialization / Verification](#initialization--verification-🍀) for more details
+- Create `ads.txt` automatically (see [Initialization / Verification](#initialization--verification-) for more details)
 
 ## 📑 Table of Contents
 
-- [🗝️ Features](#🗝️-features)
-- [👾 Why next-google-adsense?](#👾-why-next-google-adsense)
-- [📦 Requirements](#📦-requirements)
-- [🚀 Getting Started](#🚀-getting-started)
+- [🗝️ Features](#-features)
+- [👾 Why next-google-adsense?](#-why-next-google-adsense)
+- [📦 Requirements](#-requirements)
+- [🚀 Getting Started](#-getting-started)
   - [Installation](#installation)
-  - [Initialization / Verification](#initialization--verification-🍀)
+  - [Initialization / Verification](#initialization--verification-)
   - [Usage](#usage)
     - [Auto Ads](#auto-ads)
     - [Manual Ads](#manual-ads)
-- [📖 API Reference](#📖-api-reference)
+- [📖 API Reference](#-api-reference)
   - [Components](#components)
     - [GoogleAdSense](#initializes-the-google-adsense)
     - [AdUnit](#manual-ad)
-- [🎨 Create a custom layout](#🎨-create-a-custom-layout)
+- [🎨 Create a custom layout](#-create-a-custom-layout)
   - [How to convert the given html to a custom layout?](#how-to-convert-the-given-html-to-a-custom-layout)
-- [🐛 Known Issues](#🐛-known-issues)
-- [⭐ TODO](#⭐-todo)
-- [🤝 Contributing](#🤝-contributing)
-- [📝 License](#📝-license)
-- [☕ Donation](#☕-donation)
+- [🐛 Known Issues](#-known-issues)
+- [⭐ TODO](#-todo)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [☕ Donation](#-donation)
 
 ## 👾 Why next-google-adsense?
 
