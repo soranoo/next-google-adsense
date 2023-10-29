@@ -15,18 +15,17 @@ Give me a ⭐ if you like it.
 - Support SSR (Server-Side Rendering), SSG (Static Site Generation) and CSR (Client-Side Rendering)
 - Support TypeScript
 - Zero Dependencies
-- Theoretically support all AdSense AD types (see [🎨 Create a custom layout](#🎨-create-a-custom-layout) for more details)
+- Theoretically support all AdSense AD types (see [🎨 Create a custom layout](#-create-a-custom-layout) for more details)
 - Create `ads.txt` automatically (see [Initialization / Verification](#initialization--verification-) for more details)
 
 ## 📑 Table of Contents
 
-- [🗝️ Features](#-features)
 - [👾 Why next-google-adsense?](#-why-next-google-adsense)
 - [📦 Requirements](#-requirements)
 - [🚀 Getting Started](#-getting-started)
   - [Installation](#installation)
   - [Initialization / Verification](#initialization--verification-)
-  - [Usage](#usage)
+  - [Usage](#usage-)
     - [Auto Ads](#auto-ads)
     - [Manual Ads](#manual-ads)
 - [📖 API Reference](#-api-reference)
