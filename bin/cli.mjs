@@ -14,19 +14,26 @@ const adsTxtContent = `google.com, ${env.NEXT_PUBLIC_GOOGLE_ADSENSE_PUBLISHER_ID
 // create "ads.txt" file to "public" folder
 // if public folder not exist, create it
 const createAdsTxt = async () => {
+  console.log(`📝 [next-google-adsense] Creating "ads.txt"...`);
+
   if (!isPublisherId(env.NEXT_PUBLIC_GOOGLE_ADSENSE_PUBLISHER_ID)) {
-    throw new Error(
-      `Invalid publisher ID: ${env.NEXT_PUBLIC_GOOGLE_ADSENSE_PUBLISHER_ID}`
+    console.error(
+      `❌ [next-google-adsense] Invalid Google AdSense Publisher ID: ${env.NEXT_PUBLIC_GOOGLE_ADSENSE_PUBLISHER_ID}`
     );
+    process.exit(1);
   }
 
   try {
     await fs.access(publicPath);
   } catch (err) {
+    console.log(`📁 [next-google-adsense] Creating "public" folder...`);
     await fs.mkdir(publicPath);
   }
 
   await fs.writeFile(adsTxtPath, adsTxtContent);
+
+  console.log(`✅ [next-google-adsense] Generation completed: ${adsTxtPath}`);
+  console.log(`✨ [next-google-adsense] You can access it at: http://<hostname>/ads.txt`);
 };
 
 createAdsTxt();
