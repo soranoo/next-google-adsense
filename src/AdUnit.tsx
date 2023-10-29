@@ -37,7 +37,7 @@ const AdUnit = ({
 
   if (!isPublisherId(_publisherId) || !isSlotId(slotId)) {
     console.error(
-      "next-google-adsense: Invalid publisherId or slotId found for the unit"
+      "❌ [next-google-adsense] Invalid publisherId or slotId found for the unit."
     );
     return null;
   }
@@ -57,7 +57,7 @@ const AdUnit = ({
       // TODO: add verification to custom layout
       if (!customLayout) {
         console.error(
-          "next-google-adsense: Custom layout is not provided for the unit"
+          "❌ [next-google-adsense] Custom layout is not provided for the unit."
         );
         return null;
       }

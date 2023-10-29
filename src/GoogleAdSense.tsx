@@ -23,7 +23,7 @@ const GoogleAdSense = ({
 
   if (!isPublisherId(_publisherId)) {
     console.error(
-      "next-google-adsense: Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-"
+      "❌ [next-google-adsense] Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-"
     );
     return null;
   }
