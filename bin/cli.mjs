@@ -17,10 +17,9 @@ const createAdsTxt = async () => {
   console.log(`📝 [next-google-adsense] Creating "ads.txt"...`);
 
   if (!isPublisherId(env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID)) {
-    console.error(
+    throw new Error(
       `❌ [next-google-adsense] Invalid Google AdSense Publisher ID: ${env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`
     );
-    process.exit(1);
   }
 
   try {
