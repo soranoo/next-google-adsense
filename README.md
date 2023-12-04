@@ -1,6 +1,6 @@
 # NEXT-GOOGLE-ADSENSE
 
-![Weekly Download](https://img.shields.io/npm/dw/next-google-adsense?color=0066cc&style=flat) ![Tests](https://github.com/soranoo/next-google-adsense/actions/workflows/auto_test.yml/badge.svg) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)&nbsp;&nbsp;&nbsp;[![Donation](https://img.shields.io/static/v1?label=Donation&message=❤️&style=social)](https://github.com/soranoo/Donation)
+[![Weekly Download](https://img.shields.io/npm/dw/next-google-adsense?color=0066cc&style=flat)](https://www.npmjs.com/package/next-google-adsense) ![Tests](https://github.com/soranoo/next-google-adsense/actions/workflows/auto_test.yml/badge.svg) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)&nbsp;&nbsp;&nbsp;[![Donation](https://img.shields.io/static/v1?label=Donation&message=❤️&style=social)](https://github.com/soranoo/Donation)
 
 Add Google AdSense to your Next.js app.
 
