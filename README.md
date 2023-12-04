@@ -98,7 +98,7 @@ There are two ways to verify your site (of course you can implement both):
     You can also add the `publisherId` as environment variable as `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. The environment variable will override the prop if both are set.
 
 2. Ads.txt snippet
-   ```json
+   ```js
    // package.json
    
    // ...
