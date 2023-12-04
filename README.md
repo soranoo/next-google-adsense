@@ -135,7 +135,7 @@ const Page = () => {
         layout="display"                    {/* See the API Reference for more options */}
         />
       {/* or */}
-       <AdUnit                              {/* if NEXT_PUBLIC_ADSENSE_SLOT_ID is set */}
+       <AdUnit                              {/* if NEXT_PUBLIC_ADSENSE_PUBLISHER_ID is set */}
         slotId="XXXXXXXXXX"
         layout="display"
         />
