@@ -1,8 +1,10 @@
+"use client";
+
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/ResponsiveAdUnit.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
 import React from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import Script from "next/script";
 import { isPublisherId, isSlotId } from "./utils";
 import {
@@ -25,13 +27,15 @@ type AdUnitProps = {
  * @param layout - Google AdSense ad unit layout
  * @param comment - Comment for the unit, it will be used to generate a unique key for the unit, easier to debug
  */
-const AdUnit = ({
+export const AdUnit = ({
   publisherId,
   slotId,
   layout = "display",
   customLayout,
   comment = "regular",
 }: AdUnitProps): JSX.Element | null => {
+  const pathname = usePathname();
+  
   const _publisherId =
     process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
@@ -68,12 +72,14 @@ const AdUnit = ({
       break;
   }
 
-  const router = useRouter();
+  if (!pathname) {
+    return null;
+  }
 
   return (
     <div
       key={
-        router.asPath.replace(/\//g, "-") +
+        pathname.replace(/\//g, "-") +
         "-" +
         slotId +
         "-" +
@@ -88,4 +94,3 @@ const AdUnit = ({
   );
 };
 
-export { AdUnit };

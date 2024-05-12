@@ -14,7 +14,7 @@ type GoogleAdSenseProps = {
  * @param publisherId - Google AdSense publisher ID, if not provided, it will use NEXT_PUBLIC_ADSENSE_PUBLISHER_ID from .env
  * @param debug - Google AdSense debug mode
  */
-const GoogleAdSense = ({
+export const GoogleAdSense = ({
   publisherId,
   debug = false,
 }: GoogleAdSenseProps): JSX.Element | null => {
@@ -39,5 +39,3 @@ const GoogleAdSense = ({
     />
   );
 };
-
-export { GoogleAdSense };
