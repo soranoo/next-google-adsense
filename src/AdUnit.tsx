@@ -3,9 +3,8 @@
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/ResponsiveAdUnit.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
-import React from "react";
+import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import Script from "next/script";
 import { isPublisherId, isSlotId } from "./utils";
 import {
   type Layout as AdLayout,
@@ -35,14 +34,15 @@ export const AdUnit = ({
   comment = "regular",
 }: AdUnitProps): JSX.Element | null => {
   const pathname = usePathname();
-  
-  const _publisherId =
-    process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
+
+  useEffect(() => {
+    (((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({}));
+  }, []);
+
+  const _publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
   if (!isPublisherId(_publisherId) || !isSlotId(slotId)) {
-    console.error(
-      "❌ [next-google-adsense] Invalid publisherId or slotId found for the unit."
-    );
+    console.error("❌ [next-google-adsense] Invalid publisherId or slotId found for the unit.");
     return null;
   }
 
@@ -60,9 +60,7 @@ export const AdUnit = ({
     case "custom":
       // TODO: add verification to custom layout
       if (!customLayout) {
-        console.error(
-          "❌ [next-google-adsense] Custom layout is not provided for the unit."
-        );
+        console.error("❌ [next-google-adsense] Custom layout is not provided for the unit.");
         return null;
       }
       Ad = customLayout;
@@ -76,21 +74,12 @@ export const AdUnit = ({
     return null;
   }
 
+  //? There empty object is used nothing but to make sure the
+  //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
+
   return (
-    <div
-      key={
-        pathname.replace(/\//g, "-") +
-        "-" +
-        slotId +
-        "-" +
-        comment.replace(" ", "-")
-      }
-    >
+    <div key={pathname.replace(/\//g, "-") + "-" + slotId + "-" + comment.replace(" ", "-")}>
       {Ad}
-      <Script id="next-google-adsense" strategy="afterInteractive">
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      </Script>
     </div>
   );
 };
-
