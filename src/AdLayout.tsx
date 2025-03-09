@@ -1,4 +1,5 @@
-import React, { DetailedHTMLProps } from "react";
+import type { DetailedHTMLProps } from "react";
+import React from "react";
 
 export type Layout = "display" | "in-article" | "custom";
 

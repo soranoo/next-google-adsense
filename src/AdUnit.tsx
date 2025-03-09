@@ -78,7 +78,7 @@ export const AdUnit = ({
   //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
 
   return (
-    <div key={pathname.replace(/\//g, "-") + "-" + slotId + "-" + comment.replace(" ", "-")}>
+    <div key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}>
       {Ad}
     </div>
   );

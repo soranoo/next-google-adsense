@@ -3,10 +3,9 @@
 
 import type { ScriptProps } from "next/script";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Script from "next/script";
 import { isPublisherId } from "./utils";
-import { usePathname } from "next/navigation";
 
 interface GoogleAdSenseProps extends Omit<ScriptProps, "src" | "id"> {
   publisherId?: string;
@@ -22,8 +21,6 @@ export const GoogleAdSense = ({
   debug = false,
   ...props
 }: GoogleAdSenseProps): JSX.Element | null => {
-  const pathName = usePathname();
-
   const _publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
   if (!isPublisherId(_publisherId)) {
@@ -38,7 +35,7 @@ export const GoogleAdSense = ({
       async={true}
       id="next-google-adsense"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}${
-        debug ? `google_console=1` : ``
+        debug ? "google_console=1" : ""
       }`}
       strategy="afterInteractive"
       crossOrigin="anonymous"
