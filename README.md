@@ -97,6 +97,8 @@ There are two ways to verify your site (of course you can implement both):
    ```
     You can also add the `publisherId` as environment variable as `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. The environment variable will override the prop if both are set.
 
+    > [!NOTE]\ No need to add the prefix `ca-` to the `publisherId`. The package will add it automatically.
+
 2. Ads.txt snippet
    ```js
    // package.json
@@ -109,7 +111,7 @@ There are two ways to verify your site (of course you can implement both):
    // ...
    ```
 
-   > ⚠️ Your old `ads.txt` will be overwritten during the generation process.
+   > [!WARNING]\ Your old `ads.txt` will be overwritten during the generation process.
 
    You must set `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` as environment variable. The environment variable will be used to generate the `ads.txt`.
 
