@@ -19,5 +19,6 @@
     "jest.config.js",
     "jest.config.d.ts",
     "bin"
-  ]
+  ],
+  "include": ["src/**/*"]
 }

@@ -3,14 +3,15 @@
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/ResponsiveAdUnit.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
-import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { isPublisherId, isSlotId } from "./utils";
+// biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
+import React, { useEffect } from "react";
 import {
   type Layout as AdLayout,
   Display as AdLayout_Display,
   InArticle as AdLayout_InArticle,
 } from "./AdLayout";
+import { isPublisherId, isSlotId } from "./utils";
 
 type AdUnitProps = {
   publisherId?: string;
@@ -36,13 +37,18 @@ export const AdUnit = ({
   const pathname = usePathname();
 
   useEffect(() => {
-    (((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({}));
+    // biome-ignore lint/suspicious/noAssignInExpressions: adsbygoogle needed
+    // biome-ignore lint/suspicious/noExplicitAny: needed to cast to any in order to access adsbygoogle
+    ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }, []);
 
-  const _publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
+  const _publisherId =
+    process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
   if (!isPublisherId(_publisherId) || !isSlotId(slotId)) {
-    console.error("❌ [next-google-adsense] Invalid publisherId or slotId found for the unit.");
+    console.error(
+      "❌ [next-google-adsense] Invalid publisherId or slotId found for the unit.",
+    );
     return null;
   }
 
@@ -60,7 +66,9 @@ export const AdUnit = ({
     case "custom":
       // TODO: add verification to custom layout
       if (!customLayout) {
-        console.error("❌ [next-google-adsense] Custom layout is not provided for the unit.");
+        console.error(
+          "❌ [next-google-adsense] Custom layout is not provided for the unit.",
+        );
         return null;
       }
       Ad = customLayout;
@@ -78,7 +86,9 @@ export const AdUnit = ({
   //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
 
   return (
-    <div key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}>
+    <div
+      key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}
+    >
       {Ad}
     </div>
   );

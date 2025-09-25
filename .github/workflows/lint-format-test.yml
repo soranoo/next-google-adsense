@@ -1,4 +1,4 @@
-name: Tests
+name: Lint, Format, and Test
 
 # Controls when the workflow will run
 on:
@@ -28,6 +28,14 @@ jobs:
         run: npm install
 
       # Runs test using the runners shell
+      - name: Lint
+        run: npm run lint
+
+      - name: Format
+        run: npm run fmt
+
       - name: Test
         run: npm run test
+
+      
         

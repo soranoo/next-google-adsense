@@ -1,3 +1,3 @@
-export { GoogleAdSense } from "./GoogleAdSense";
+export type { Layout } from "./AdLayout";
 export { AdUnit } from "./AdUnit";
-export { type Layout } from "./AdLayout";
+export { GoogleAdSense } from "./GoogleAdSense";
