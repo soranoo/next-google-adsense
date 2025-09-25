@@ -15,6 +15,7 @@ Give me a ⭐ if you like it.
 - Support SSR (Server-Side Rendering), SSG (Static Site Generation) and CSR (Client-Side Rendering)
 - Support TypeScript
 - Zero Dependencies
+- Dummy Ad Support for Development - Preview ads locally without real AdSense integration
 - Theoretically support all AdSense AD types (see [🎨 Create a custom layout](#-create-a-custom-layout) for more details)
 - Create `ads.txt` automatically (see [Initialization / Verification](#initialization--verification-) for more details)
 
@@ -28,10 +29,14 @@ Give me a ⭐ if you like it.
   - [Usage](#usage-)
     - [Auto Ads](#auto-ads)
     - [Manual Ads](#manual-ads)
+    - [Dummy Ads for Development](#dummy-ads-for-development-)
 - [📖 API Reference](#-api-reference)
   - [Components](#components)
     - [GoogleAdSense](#initializes-the-google-adsense)
     - [AdUnit](#manual-ad)
+  - [Ad Sizes](#ad-sizes)
+    - [Display Ad Sizes](#display-ad-sizes)
+    - [In-Article Ad Sizes](#in-article-ad-sizes)
 - [🎨 Create a custom layout](#-create-a-custom-layout)
   - [How to convert the given html to a custom layout?](#how-to-convert-the-given-html-to-a-custom-layout)
 - [🐛 Known Issues](#-known-issues)
@@ -125,6 +130,9 @@ If you decide to use Auto Ads, you are good to go. The ads will be automatically
 
 #### Manual Ads
 
+> [!NOTE]\
+> Google AdSense does't work in local environment. You need to test it in production or use [Dummy Ads for Development](#dummy-ads-for-development-).
+
 ```typescript
 import { AdUnit } from "next-google-adsense";
 
@@ -150,6 +158,54 @@ const Page = () => {
 export default Page;
 ```
 
+#### Dummy Ads for Development 🧪
+
+Perfect for development and testing! Show realistic ad placeholders without needing actual AdSense approval.
+
+```typescript
+import { AdUnit, DISPLAY_AD_SIZES, ARTICLE_AD_SIZES } from "next-google-adsense";
+
+const Page = () => {
+  return (
+    <>
+      {/* Using predefined sizes */}
+      <AdUnit
+        slotId="1234567890"
+        layout="display"
+        dummySize="LEADERBOARD"  {/* 728x90 */}
+      />
+
+      <AdUnit
+        slotId="1234567890"
+        layout="in-article"
+        dummySize="MEDIUM_RECTANGLE"  {/* 300x250 */}
+      />
+
+      {/* Using custom dimensions */}
+      <AdUnit
+        slotId="1234567890"
+        layout="display"
+        dummySize={{ width: 600, height: 400 }}
+      />
+
+      {/* Using size objects directly */}
+      <AdUnit
+        slotId="1234567890"
+        layout="display"
+        dummySize={DISPLAY_AD_SIZES.BANNER}  {/* 468x60 */}
+      />
+
+      <YourContent />
+    </>
+  );
+};
+
+export default Page;
+```
+
+> [!NOTE]\
+> Dummy ads only appear when the `dummySize` prop is provided. In production (when `NODE_ENV`/`NEXT_PUBLIC_ENV` is not "development"), real ads will be displayed instead.
+
 ## 📖 API Reference
 
 ### Components
@@ -167,15 +223,65 @@ export default Page;
 #### Manual AD
 
 ```typescript
-<AdUnit publisherId={string} slotId={string} layout={"display" | "in-article" | "custom"} customLayout={JSX.Element}>
+<AdUnit publisherId={string} slotId={string} layout={"display" | "in-article" | "custom"} customLayout={JSX.Element} dummySize={DisplayAdSize | ArticleAdSize | {width: number, height: number}}>
 ```
 
-| Parameter    | Optional | Type                                  | Default   | Description                                                                                         |
-| ------------ | -------- | ------------------------------------- | --------- | --------------------------------------------------------------------------------------------------- |
-| publisherId  | Yes      | string                                | n/a       | You can skip this parameter if you set the environment variable `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. |
-| slotId       | No       | string                                | n/a       | Google AdSense Slot ID.                                                                             |
-| layout       | Yes      | "display" \| "in-article" \| "custom" | "display" | The layout of the AD.                                                                               |
-| customLayout | Yes      | JSX.Element                           | n/a       | The custom layout of the AD. This parameter is required if `layout` is set to "custom".             |
+| Parameter    | Optional | Type                                                                        | Default   | Description                                                                                         |
+| ------------ | -------- | --------------------------------------------------------------------------- | --------- | --------------------------------------------------------------------------------------------------- |
+| publisherId  | Yes      | string                                                                      | n/a       | You can skip this parameter if you set the environment variable `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. |
+| slotId       | No       | string                                                                      | n/a       | Google AdSense Slot ID.                                                                             |
+| layout       | Yes      | "display" \| "in-article" \| "custom"                                       | "display" | The layout of the AD.                                                                               |
+| customLayout | Yes      | JSX.Element                                                                                                       | n/a       | The custom layout of the AD. This parameter is required if `layout` is set to "custom".             |
+| dummySize    | Yes      | DisplayAdSize \| ArticleAdSize \| {width: number, height: number}          | n/a       | Show dummy ad for development. Only appears when this prop is provided.                             |
+
+### Dummy Ad Sizes
+
+All available ad sizes for the `dummySize` prop:
+
+#### Display Ad Sizes
+
+For `layout="display"` ads:
+
+| Size Name            | Key                    | Dimensions  | Best For                    |
+| -------------------- | ---------------------- | ----------- | --------------------------- |
+| Leaderboard          | `"LEADERBOARD"`        | 728 × 90    | Top of page, headers        |
+| Banner               | `"BANNER"`             | 468 × 60    | Above content               |
+| Half Banner          | `"HALF_BANNER"`        | 234 × 60    | Small horizontal spaces     |
+| Medium Rectangle     | `"MEDIUM_RECTANGLE"`   | 300 × 250   | Within content, sidebars    |
+| Large Rectangle      | `"LARGE_RECTANGLE"`    | 336 × 280   | Above the fold              |
+| Vertical Banner      | `"VERTICAL_BANNER"`    | 120 × 240   | Narrow sidebars             |
+| Wide Skyscraper      | `"WIDE_SKYSCRAPER"`    | 160 × 600   | Wide sidebars               |
+| Skyscraper           | `"SKYSCRAPER"`         | 120 × 600   | Narrow sidebars             |
+| Mobile Banner        | `"MOBILE_BANNER"`      | 320 × 50    | Mobile devices              |
+| Large Mobile Banner  | `"LARGE_MOBILE_BANNER"` | 320 × 100   | Mobile devices, larger      |
+
+#### In-Article Ad Sizes
+
+For `layout="in-article"` ads:
+
+| Size Name        | Key                  | Dimensions | Best For                     |
+| ---------------- | -------------------- | ---------- | ---------------------------- |
+| Small Square     | `"SMALL_SQUARE"`     | 200 × 200  | Small content breaks         |
+| Square           | `"SQUARE"`           | 250 × 250  | Content breaks               |
+| Medium Rectangle | `"MEDIUM_RECTANGLE"` | 300 × 250  | Between paragraphs           |
+| Large Rectangle  | `"LARGE_RECTANGLE"`  | 336 × 280  | Longer content breaks        |
+
+#### Usage Examples
+
+```typescript
+import { AdUnit, DISPLAY_AD_SIZES, ARTICLE_AD_SIZES } from "next-google-adsense";
+
+// Using predefined size keys
+<AdUnit slotId="123" layout="display" dummySize="LEADERBOARD" />
+<AdUnit slotId="456" layout="in-article" dummySize="SQUARE" />
+
+// Using size objects
+<AdUnit slotId="789" layout="display" dummySize={DISPLAY_AD_SIZES.BANNER} />
+<AdUnit slotId="101" layout="in-article" dummySize={ARTICLE_AD_SIZES.MEDIUM_RECTANGLE} />
+
+// Using custom dimensions
+<AdUnit slotId="112" layout="display" dummySize={{ width: 400, height: 300 }} />
+```
 
 ## 🎨 Create a custom layout
 
@@ -198,7 +304,7 @@ export const InFeedAd = () => {
 };
 ```
 
-#### How to convert the given html to a custom layout?
+### How to convert the given html to a custom layout?
 
 Example (provided by Google AdSense):
 

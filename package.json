@@ -47,5 +47,8 @@
   },
   "bin": {
     "create-ads-txt": "./bin/cli.mjs"
+  },
+  "dependencies": {
+    "assert-never": "^1.4.0"
   }
 }
