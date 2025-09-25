@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import envLoader from "@next/env";
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import envLoader from "@next/env";
 import { isPublisherId } from "../dist/utils.js";
 
 const publicPath = path.join(process.cwd(), "public");

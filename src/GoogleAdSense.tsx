@@ -2,9 +2,8 @@
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
 import type { ScriptProps } from "next/script";
-
-import React from "react";
 import Script from "next/script";
+import React from "react";
 import { isPublisherId } from "./utils";
 
 interface GoogleAdSenseProps extends Omit<ScriptProps, "src" | "id"> {

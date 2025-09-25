@@ -3,14 +3,14 @@
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/ResponsiveAdUnit.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
-import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { isPublisherId, isSlotId } from "./utils";
+import React, { useEffect } from "react";
 import {
   type Layout as AdLayout,
   Display as AdLayout_Display,
   InArticle as AdLayout_InArticle,
 } from "./AdLayout";
+import { isPublisherId, isSlotId } from "./utils";
 
 type AdUnitProps = {
   publisherId?: string;
