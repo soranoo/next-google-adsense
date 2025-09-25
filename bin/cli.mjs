@@ -19,7 +19,7 @@ const createAdsTxt = async () => {
   if (isPublisherId(env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID)) {
     try {
       await fs.access(publicPath);
-    } catch (err) {
+    } catch (_err) {
       console.log(`📁 [next-google-adsense] Creating "public" folder...`);
       await fs.mkdir(publicPath);
     }

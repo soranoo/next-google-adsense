@@ -4,6 +4,7 @@
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
 import { usePathname } from "next/navigation";
+// biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
 import React, { useEffect } from "react";
 import {
   type Layout as AdLayout,
@@ -36,6 +37,8 @@ export const AdUnit = ({
   const pathname = usePathname();
 
   useEffect(() => {
+    // biome-ignore lint/suspicious/noAssignInExpressions: adsbygoogle needed
+    // biome-ignore lint/suspicious/noExplicitAny: needed to cast to any in order to access adsbygoogle
     ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }, []);
 

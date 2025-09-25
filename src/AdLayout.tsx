@@ -1,5 +1,6 @@
-import React from "react";
 import type { DetailedHTMLProps } from "react";
+// biome-ignore lint/style/useImportType: needed in the <ins> tag
+import React from "react";
 
 export type Layout = "display" | "in-article" | "custom";
 

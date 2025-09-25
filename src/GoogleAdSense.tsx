@@ -3,6 +3,7 @@
 
 import type { ScriptProps } from "next/script";
 import Script from "next/script";
+// biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
 import React from "react";
 import { isPublisherId } from "./utils";
 

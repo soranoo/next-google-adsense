@@ -8,6 +8,7 @@ module.exports = {
       "@semantic-release/git",
       {
         message:
+          // biome-ignore lint/suspicious/noTemplateCurlyInString: needed for semantic-release
           "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
         assets: ["package.json", "CHANGELOG.md"],
       },
