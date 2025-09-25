@@ -21,11 +21,12 @@ export const GoogleAdSense = ({
   debug = false,
   ...props
 }: GoogleAdSenseProps): JSX.Element | null => {
-  const _publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
+  const _publisherId =
+    process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
   if (!isPublisherId(_publisherId)) {
     console.error(
-      "❌ [next-google-adsense] Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-"
+      "❌ [next-google-adsense] Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-",
     );
     return null;
   }

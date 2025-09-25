@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 import envLoader from "@next/env";
-import { promises as fs } from "fs";
-import path from "path";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import { isPublisherId } from "../dist/utils.js";
 
 const publicPath = path.join(process.cwd(), "public");
@@ -28,12 +28,12 @@ const createAdsTxt = async () => {
 
     console.log(`✅ [next-google-adsense] Generation completed: ${adsTxtPath}`);
     console.log(
-      `✨ [next-google-adsense] You can access it at: http://<hostname>/ads.txt`
+      `✨ [next-google-adsense] You can access it at: http://<hostname>/ads.txt`,
     );
   }
 
   console.error(
-    `❌ [next-google-adsense] Invalid Google AdSense Publisher ID: ${env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`
+    `❌ [next-google-adsense] Invalid Google AdSense Publisher ID: ${env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID}`,
   );
 };
 

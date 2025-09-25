@@ -36,13 +36,16 @@ export const AdUnit = ({
   const pathname = usePathname();
 
   useEffect(() => {
-    (((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({}));
+    ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
   }, []);
 
-  const _publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
+  const _publisherId =
+    process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
   if (!isPublisherId(_publisherId) || !isSlotId(slotId)) {
-    console.error("❌ [next-google-adsense] Invalid publisherId or slotId found for the unit.");
+    console.error(
+      "❌ [next-google-adsense] Invalid publisherId or slotId found for the unit.",
+    );
     return null;
   }
 
@@ -60,7 +63,9 @@ export const AdUnit = ({
     case "custom":
       // TODO: add verification to custom layout
       if (!customLayout) {
-        console.error("❌ [next-google-adsense] Custom layout is not provided for the unit.");
+        console.error(
+          "❌ [next-google-adsense] Custom layout is not provided for the unit.",
+        );
         return null;
       }
       Ad = customLayout;
@@ -78,7 +83,9 @@ export const AdUnit = ({
   //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
 
   return (
-    <div key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}>
+    <div
+      key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}
+    >
       {Ad}
     </div>
   );

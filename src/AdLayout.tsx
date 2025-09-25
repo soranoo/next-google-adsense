@@ -4,7 +4,10 @@ import React from "react";
 export type Layout = "display" | "in-article" | "custom";
 
 interface AdLayoutProps
-  extends DetailedHTMLProps<React.InsHTMLAttributes<HTMLModElement>, HTMLModElement> {
+  extends DetailedHTMLProps<
+    React.InsHTMLAttributes<HTMLModElement>,
+    HTMLModElement
+  > {
   dataAdClient: string;
   dataAdSlot: string;
 }
@@ -13,7 +16,12 @@ interface DisplayProps extends AdLayoutProps {
   responsive?: boolean;
 }
 
-export const Display = ({ responsive, dataAdClient, dataAdSlot, ...props }: DisplayProps) => {
+export const Display = ({
+  responsive,
+  dataAdClient,
+  dataAdSlot,
+  ...props
+}: DisplayProps) => {
   return (
     <ins
       className="adsbygoogle"
@@ -29,7 +37,11 @@ export const Display = ({ responsive, dataAdClient, dataAdSlot, ...props }: Disp
 
 interface InArticleProps extends AdLayoutProps {}
 
-export const InArticle = ({ dataAdClient, dataAdSlot, ...props }: InArticleProps) => {
+export const InArticle = ({
+  dataAdClient,
+  dataAdSlot,
+  ...props
+}: InArticleProps) => {
   return (
     <ins
       className="adsbygoogle"
