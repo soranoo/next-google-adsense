@@ -1,6 +1,6 @@
 {
   "name": "next-google-adsense",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Next.js Google AdSense",
   "main": "dist/index.js",
   "type": "commonjs",
