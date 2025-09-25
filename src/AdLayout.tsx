@@ -28,7 +28,7 @@ export const Display = ({
   ...props
 }: DisplayProps) => {
   if (dummySize && isDevelopment()) {
-    return <DummyAd size={dummySize} {...props} />;
+    return <DummyAd label="Display Ad" size={dummySize} {...props} />;
   }
 
   return (
@@ -53,7 +53,7 @@ export const InArticle = ({
   ...props
 }: InArticleProps) => {
   if (dummySize && isDevelopment()) {
-    return <DummyAd size={dummySize} {...props} />;
+    return <DummyAd label="In-Article Ad" size={dummySize} {...props} />;
   }
 
   return (

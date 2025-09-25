@@ -18,6 +18,7 @@
     "pub": "npm run test && npm run build && npm publish",
     "lint": "biome check",
     "fmt": "biome format",
+    "fmt:fix": "biome format --write",
     "pub@beta": "npm run test && npm run build && npm publish --tag beta",
     "semantic-release": "semantic-release"
   },
