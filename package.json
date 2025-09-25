@@ -16,6 +16,10 @@
     "test": "vitest",
     "dev": "tsc -w",
     "pub": "npm run test && npm run build && npm publish",
+    "lint": "biome check",
+    "lint:fix": "biome check --write",
+    "fmt": "biome format",
+    "fmt:fix": "biome format --write",
     "pub@beta": "npm run test && npm run build && npm publish --tag beta"
   },
   "repository": {
@@ -33,6 +37,7 @@
     "react": ">=17.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.2.4",
     "@types/react": "^18.2.31",
     "typescript": "^5.0.2",
     "vitest": "^3.2.4"
