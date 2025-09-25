@@ -57,6 +57,7 @@ Give me a ⭐ if you like it.
 | Support Matched Content Ad | ✅                         | ❌                                                                     |
 | Dynamic `ads.txt`          | ✅                         | ❌                                                                     |
 | Multiple ADs on one page   | ✅                         | ⚠️\*1                                                                  |
+| Dummy Ad for Development   | ✅                         | ❌                                                                     |
 
 \*1: According to the their [documentation](https://github.com/btk/nextjs-google-adsense/blob/master/README.md) seems it is ok to use multiple ADs on one page. But I found that it will cause an error.
 
