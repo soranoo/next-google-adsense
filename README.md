@@ -1,6 +1,6 @@
 # NEXT-GOOGLE-ADSENSE
 
-[![Weekly Download](https://img.shields.io/npm/dw/next-google-adsense?color=0066cc&style=flat)](https://www.npmjs.com/package/next-google-adsense) ![Tests](https://github.com/soranoo/next-google-adsense/actions/workflows/auto_test.yml/badge.svg) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)&nbsp;&nbsp;&nbsp;[![Donation](https://img.shields.io/static/v1?label=Donation&message=❤️&style=social)](https://github.com/soranoo/Donation)
+[![Weekly Download](https://img.shields.io/npm/dw/next-google-adsense?color=0066cc&style=flat)](https://www.npmjs.com/package/next-google-adsense) ![Lint, Format, and Test](https://github.com/soranoo/next-google-adsense/actions/workflows/lint-format-test.yml/badge.svg) [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)&nbsp;&nbsp;&nbsp;[![Donation](https://img.shields.io/static/v1?label=Donation&message=❤️&style=social)](https://github.com/soranoo/Donation)
 
 Add Google AdSense to your Next.js app.
 
@@ -95,11 +95,13 @@ There are two ways to verify your site (of course you can implement both):
 
    export default App;
    ```
+
     You can also add the `publisherId` as environment variable as `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. The environment variable will override the prop if both are set.
 
     > [!NOTE]\ No need to add the prefix `ca-` to the `publisherId`. The package will add it automatically.
 
 2. Ads.txt snippet
+
    ```js
    // package.json
    
@@ -114,8 +116,6 @@ There are two ways to verify your site (of course you can implement both):
    > [!WARNING]\ Your old `ads.txt` will be overwritten during the generation process.
 
    You must set `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID` as environment variable. The environment variable will be used to generate the `ads.txt`.
-
-
 
 ### Usage 🎉
 
@@ -154,7 +154,7 @@ export default Page;
 
 ### Components
 
-#### Initializes the Google AdSense.
+#### Initializes the Google AdSense
 
 ```typescript
 <GoogleAdSense publisherId={string}>
@@ -164,7 +164,7 @@ export default Page;
 | ----------- | -------- | ------ | ------- | --------------------------------------------------------------------------------------------------- |
 | publisherId | Yes      | string | n/a     | You can skip this parameter if you set the environment variable `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. |
 
-#### Manual AD.
+#### Manual AD
 
 ```typescript
 <AdUnit publisherId={string} slotId={string} layout={"display" | "in-article" | "custom"} customLayout={JSX.Element}>
@@ -237,6 +237,7 @@ Example (provided by Google AdSense):
    ```
 
 3. Convert the html to JSX:
+
    ```typescript
    export const InFeedAd = () => {
      return (
@@ -251,7 +252,9 @@ Example (provided by Google AdSense):
      );
    };
    ```
+
 4. Done! You can now use the custom layout in your app.
+
    ```typescript
    <AdUnit publisherId="<your-publisher-id>" slotId="<your-slot-id>" layout="custom" customLayout={InFeedAd}>
    ```
