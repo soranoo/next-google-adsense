@@ -20,7 +20,8 @@
     "lint:fix": "biome check --write",
     "fmt": "biome format",
     "fmt:fix": "biome format --write",
-    "pub@beta": "npm run test && npm run build && npm publish --tag beta"
+    "pub@beta": "npm run test && npm run build && npm publish --tag beta",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
