@@ -36,11 +36,12 @@ export const AdUnit = ({
 }: AdUnitProps): JSX.Element | null => {
   const pathname = usePathname();
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Refresh ads when pathname changes
   useEffect(() => {
     // biome-ignore lint/suspicious/noAssignInExpressions: adsbygoogle needed
     // biome-ignore lint/suspicious/noExplicitAny: needed to cast to any in order to access adsbygoogle
     ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-  }, []);
+  }, [pathname]);
 
   const _publisherId =
     process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
