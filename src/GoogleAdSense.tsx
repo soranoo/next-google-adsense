@@ -33,7 +33,6 @@ export const GoogleAdSense = ({
   return (
     <Script
       async={true}
-      id="next-google-adsense"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}${
         debug ? "google_console=1" : ""
       }`}
