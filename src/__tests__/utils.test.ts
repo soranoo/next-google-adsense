@@ -1,5 +1,5 @@
-
-import { isPublisherId, isSlotId } from "./utils";
+import { describe, it, expect } from "vitest";
+import { isPublisherId, isSlotId } from "../utils";
 
 describe("utils", () => {
     describe("isPublisherId", () => {

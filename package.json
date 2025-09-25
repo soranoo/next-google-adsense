@@ -13,9 +13,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc & jest",
+    "test": "vitest",
     "dev": "tsc -w",
-    "dev:test": "tsc & jest --coverage",
     "pub": "npm run test && npm run build && npm publish",
     "pub@beta": "npm run test && npm run build && npm publish --tag beta"
   },
@@ -34,11 +33,9 @@
     "react": ">=17.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.0",
     "@types/react": "^18.2.31",
-    "jest": "^29.5.0",
-    "ts-jest": "^29.0.5",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "vitest": "^3.2.4"
   },
   "bin": {
     "create-ads-txt": "./bin/cli.mjs"
