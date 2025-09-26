@@ -3,23 +3,46 @@
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/ResponsiveAdUnit.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
+import assertNever from "assert-never";
 import { usePathname } from "next/navigation";
 // biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   type Layout as AdLayout,
   Display as AdLayout_Display,
   InArticle as AdLayout_InArticle,
 } from "./AdLayout";
-import { isPublisherId, isSlotId } from "./utils";
+import {
+  ARTICLE_AD_SIZES,
+  type ArticleAdSize,
+  DISPLAY_AD_SIZES,
+  type DisplayAdSize,
+  isPublisherId,
+  isSlotId,
+} from "./utils";
 
-type AdUnitProps = {
+type AdUnitProps<TLayout extends AdLayout> = {
   publisherId?: string;
   slotId: string;
-  layout: AdLayout;
-  customLayout?: JSX.Element;
+  layout: TLayout;
   comment?: string;
-};
+} & (
+  | {
+      layout: "display";
+      dummySize?: DisplayAdSize | { width: number; height: number };
+      customLayout?: never;
+    }
+  | {
+      layout: "in-article";
+      dummySize?: ArticleAdSize | { width: number; height: number };
+      customLayout?: never;
+    }
+  | {
+      layout: "custom";
+      dummySize?: never;
+      customLayout: JSX.Element;
+    }
+);
 
 /**
  * @param publisherId - Google AdSense publisher ID
@@ -27,20 +50,29 @@ type AdUnitProps = {
  * @param layout - Google AdSense ad unit layout
  * @param comment - Comment for the unit, it will be used to generate a unique key for the unit, easier to debug
  */
-export const AdUnit = ({
+export const AdUnit = <TLayout extends AdLayout>({
   publisherId,
   slotId,
-  layout = "display",
+  layout = "display" as TLayout,
   customLayout,
   comment = "regular",
-}: AdUnitProps): JSX.Element | null => {
+  dummySize,
+}: AdUnitProps<TLayout>): JSX.Element | null => {
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Refresh ads when pathname changes
   useEffect(() => {
+    if (!containerRef.current?.offsetWidth) {
+      // If the container has no width, an error will show "Uncaught TagError: adsbygoogle.push() error: No slot size for availableWidth=0"
+      // ref: https://github.com/soranoo/next-google-adsense/issues/18#issuecomment-3337106568
+      return;
+    }
+
     // biome-ignore lint/suspicious/noAssignInExpressions: adsbygoogle needed
     // biome-ignore lint/suspicious/noExplicitAny: needed to cast to any in order to access adsbygoogle
     ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
-  }, []);
+  }, [pathname]);
 
   const _publisherId =
     process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
@@ -57,14 +89,35 @@ export const AdUnit = ({
   let Ad: JSX.Element;
 
   switch (layout) {
-    case "display":
-      Ad = <AdLayout_Display dataAdClient={clientId} dataAdSlot={slotId} />;
+    case "display": {
+      const dSize =
+        typeof dummySize === "string"
+          ? DISPLAY_AD_SIZES[dummySize as DisplayAdSize]
+          : dummySize;
+      Ad = (
+        <AdLayout_Display
+          dataAdClient={clientId}
+          dataAdSlot={slotId}
+          dummySize={dSize}
+        />
+      );
       break;
-    case "in-article":
-      Ad = <AdLayout_InArticle dataAdClient={clientId} dataAdSlot={slotId} />;
+    }
+    case "in-article": {
+      const dSize =
+        typeof dummySize === "string"
+          ? ARTICLE_AD_SIZES[dummySize as ArticleAdSize]
+          : dummySize;
+      Ad = (
+        <AdLayout_InArticle
+          dataAdClient={clientId}
+          dataAdSlot={slotId}
+          dummySize={dSize}
+        />
+      );
       break;
+    }
     case "custom":
-      // TODO: add verification to custom layout
       if (!customLayout) {
         console.error(
           "❌ [next-google-adsense] Custom layout is not provided for the unit.",
@@ -74,22 +127,11 @@ export const AdUnit = ({
       Ad = customLayout;
       break;
     default:
-      Ad = <AdLayout_Display dataAdClient={clientId} dataAdSlot={slotId} />;
-      break;
-  }
-
-  if (!pathname) {
-    return null;
+      assertNever(layout);
   }
 
   //? There empty object is used nothing but to make sure the
   //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
 
-  return (
-    <div
-      key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}
-    >
-      {Ad}
-    </div>
-  );
+  return <div ref={containerRef}>{Ad}</div>;
 };
