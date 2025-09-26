@@ -6,7 +6,7 @@
 import assertNever from "assert-never";
 import { usePathname } from "next/navigation";
 // biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   type Layout as AdLayout,
   Display as AdLayout_Display,
@@ -59,9 +59,16 @@ export const AdUnit = <TLayout extends AdLayout>({
   dummySize,
 }: AdUnitProps<TLayout>): JSX.Element | null => {
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Refresh ads when pathname changes
   useEffect(() => {
+    if (!containerRef.current?.offsetWidth) {
+      // If the container has no width, an error will show "Uncaught TagError: adsbygoogle.push() error: No slot size for availableWidth=0"
+      // ref: https://github.com/soranoo/next-google-adsense/issues/18#issuecomment-3337106568
+      return;
+    }
+
     // biome-ignore lint/suspicious/noAssignInExpressions: adsbygoogle needed
     // biome-ignore lint/suspicious/noExplicitAny: needed to cast to any in order to access adsbygoogle
     ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
@@ -126,11 +133,5 @@ export const AdUnit = <TLayout extends AdLayout>({
   //? There empty object is used nothing but to make sure the
   //? empty object can be passed via .push, see: https://github.com/soranoo/next-google-adsense/issues/6
 
-  return (
-    <div
-      key={`${pathname.replace(/\//g, "-")}-${slotId}-${comment.replace(" ", "-")}`}
-    >
-      {Ad}
-    </div>
-  );
+  return <div ref={containerRef}>{Ad}</div>;
 };
