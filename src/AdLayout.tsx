@@ -1,6 +1,8 @@
 import type { DetailedHTMLProps } from "react";
 // biome-ignore lint/style/useImportType: needed in the <ins> tag
 import React from "react";
+import { DummyAd } from "./DummyAd";
+import { isDevelopment } from "./utils";
 
 export type Layout = "display" | "in-article" | "custom";
 
@@ -11,6 +13,7 @@ interface AdLayoutProps
   > {
   dataAdClient: string;
   dataAdSlot: string;
+  dummySize?: { width: number; height: number };
 }
 
 interface DisplayProps extends AdLayoutProps {
@@ -21,8 +24,13 @@ export const Display = ({
   responsive,
   dataAdClient,
   dataAdSlot,
+  dummySize,
   ...props
 }: DisplayProps) => {
+  if (dummySize && isDevelopment()) {
+    return <DummyAd label="Display Ad" size={dummySize} {...props} />;
+  }
+
   return (
     <ins
       className="adsbygoogle"
@@ -41,8 +49,13 @@ interface InArticleProps extends AdLayoutProps {}
 export const InArticle = ({
   dataAdClient,
   dataAdSlot,
+  dummySize,
   ...props
 }: InArticleProps) => {
+  if (dummySize && isDevelopment()) {
+    return <DummyAd label="In-Article Ad" size={dummySize} {...props} />;
+  }
+
   return (
     <ins
       className="adsbygoogle"
