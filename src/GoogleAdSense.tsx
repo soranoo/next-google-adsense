@@ -1,6 +1,7 @@
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/GoogleAdSense.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
+import { usePathname } from "next/navigation";
 import type { ScriptProps } from "next/script";
 import Script from "next/script";
 // biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
@@ -21,6 +22,7 @@ export const GoogleAdSense = ({
   debug = false,
   ...props
 }: GoogleAdSenseProps): JSX.Element | null => {
+  const pathname = usePathname();
   const _publisherId =
     process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
@@ -33,6 +35,8 @@ export const GoogleAdSense = ({
 
   return (
     <Script
+      // Rerender the script when pathname changes to ensure load when navigating pages
+      key={`adsbygoogle-js-${_publisherId}-${pathname}`}
       async={true}
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}${
         debug ? "google_console=1" : ""
