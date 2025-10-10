@@ -1,3 +1,5 @@
+"use client";
+
 // ref: https://github.com/btk/nextjs-google-adsense/blob/master/src/components/GoogleAdSense.tsx
 // ref: https://medium.com/frontendweb/how-to-add-google-adsense-in-your-nextjs-89e439f74de3
 
@@ -5,7 +7,7 @@ import { usePathname } from "next/navigation";
 import type { ScriptProps } from "next/script";
 import Script from "next/script";
 // biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
-import React from "react";
+import React, { useEffect } from "react";
 import { isPublisherId } from "./utils";
 
 interface GoogleAdSenseProps extends Omit<ScriptProps, "src" | "id"> {
@@ -26,24 +28,30 @@ export const GoogleAdSense = ({
   const _publisherId =
     process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? publisherId;
 
-  if (!isPublisherId(_publisherId)) {
-    console.error(
-      "❌ [next-google-adsense] Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-",
-    );
-    return null;
-  }
+  useEffect(() => {
+    if (!isPublisherId(_publisherId)) {
+      console.error(
+        "❌ [next-google-adsense] Invalid publisherId. It should be like this: pub-xxxxxxxxxxxxxxxx, there is a total of 16 digits behind pub-",
+      );
+      return;
+    }
 
-  return (
-    <Script
-      // Rerender the script when pathname changes to ensure load when navigating pages
-      key={`adsbygoogle-js-${_publisherId}-${pathname}`}
-      async={true}
-      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}${
-        debug ? "google_console=1" : ""
-      }`}
-      strategy="afterInteractive"
-      crossOrigin="anonymous"
-      {...props}
-    />
-  );
+    // Remove any previous instance
+    const existing = document.querySelector(
+      'script[src*="pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]',
+    );
+    if (existing) {
+      existing.remove();
+    }
+
+    // Re-insert the script
+    const script = document.createElement("script");
+    script.src =
+      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX";
+    script.async = true;
+    script.crossOrigin = "anonymous";
+    document.head.appendChild(script);
+  }, [pathname, _publisherId]);
+
+  return null;
 };
