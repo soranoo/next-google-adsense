@@ -43,12 +43,15 @@ export const GoogleAdSense = ({
       existing.remove();
     }
 
-    // Re-insert the script
-    const script = document.createElement("script");
-    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}`;
-    script.async = true;
-    script.crossOrigin = "anonymous";
-    document.head.appendChild(script);
+    // Delay a frame to make sure the DOM is fully updated
+    requestAnimationFrame(() => {
+      // Insert the Google AdSense script
+      const script = document.createElement("script");
+      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}`;
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      document.head.appendChild(script);
+    });
   }, [pathname, _publisherId]);
 
   return null;
