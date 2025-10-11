@@ -9,15 +9,18 @@ import { isPublisherId } from "./utils";
 
 interface GoogleAdSenseProps extends Omit<ScriptProps, "src" | "id"> {
   publisherId?: string;
+  isAutoAd?: boolean;
   debug?: boolean;
 }
 
 /**
  * @param publisherId - Google AdSense publisher ID, if not provided, it will use NEXT_PUBLIC_ADSENSE_PUBLISHER_ID from .env
+ * @param isAutoAd - Whether to enable Auto Ads
  * @param debug - Google AdSense debug mode
  */
 export const GoogleAdSense = ({
   publisherId,
+  isAutoAd = false,
   debug = false,
   ...props
 }: GoogleAdSenseProps): JSX.Element | null => {
@@ -37,7 +40,7 @@ export const GoogleAdSense = ({
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}${
         debug ? "google_console=1" : ""
       }`}
-      strategy="lazyOnload"
+      strategy={isAutoAd ? "lazyOnload" : "afterInteractive"}
       crossOrigin="anonymous"
       {...props}
     />

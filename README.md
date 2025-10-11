@@ -91,7 +91,10 @@ There are two ways to verify your site (of course you can implement both):
    const App = ({ Component, pageProps }) => {
      return (
        <>
-         <GoogleAdSense publisherId="pub-XXXXXXXXXXXXXXXX" /> {/* 👈 16 digits */}
+         <GoogleAdSense 
+            publisherId="pub-XXXXXXXXXXXXXXXX" // 👈 16 digits
+            isAutoAd={false} // 👈 true if you want to use Auto Ads
+          />
          {/* or */}
          <GoogleAdSense /> {/* if NEXT_PUBLIC_ADSENSE_PUBLISHER_ID is set */}
          <Component {...pageProps} />
@@ -220,6 +223,8 @@ export default Page;
 | Parameter   | Optional | Type   | Default | Description                                                                                         |
 | ----------- | -------- | ------ | ------- | --------------------------------------------------------------------------------------------------- |
 | publisherId | Yes      | string | n/a     | You can skip this parameter if you set the environment variable `NEXT_PUBLIC_ADSENSE_PUBLISHER_ID`. |
+| isAutoAd    | Yes      | boolean| false   | Whether to enable Auto Ads.                                                                         |
+| debug       | Yes      | boolean| false   | Enable Google AdSense debug mode.                                                                   |
 
 #### Manual AD
 
