@@ -5,7 +5,6 @@
 
 import { usePathname } from "next/navigation";
 import type { ScriptProps } from "next/script";
-import Script from "next/script";
 // biome-ignore lint/correctness/noUnusedImports: React refers to a UMD global, but the current file is a module.
 import React, { useEffect } from "react";
 import { isPublisherId } from "./utils";
@@ -46,8 +45,7 @@ export const GoogleAdSense = ({
 
     // Re-insert the script
     const script = document.createElement("script");
-    script.src =
-      "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXX";
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-${_publisherId}`;
     script.async = true;
     script.crossOrigin = "anonymous";
     document.head.appendChild(script);
